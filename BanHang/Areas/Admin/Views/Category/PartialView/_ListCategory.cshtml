@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel>
+@{ var count = 1;}
+
+@foreach (var item in Model)
+{
+    <tr id="category-@item.CategoryId">
+        <td>@count</td>@{ count++;}
+        <td>@item.CategoryName</td>
+        <td>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#CategoryModal" onclick='EditCategory(@item.CategoryId)'>Chỉnh sửa </button>
+            <button type="button" class="btn btn-danger" onclick='DeleteCategory(@item.CategoryId, "#category-@item.CategoryId");'>Xóa</button>
+        </td>
+    </tr>
+
+}

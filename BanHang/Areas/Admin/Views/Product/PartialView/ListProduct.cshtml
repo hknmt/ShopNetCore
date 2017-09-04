@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.ProductViewModel.IndexViewModel>
+@{ 
+    int totalItem = int.Parse(ViewData["totalItem"].ToString());
+    int pageSize = int.Parse(ViewData["pageSize"].ToString());
+    int currentPage = int.Parse(ViewData["currentPage"].ToString());
+
+    int totalPage = totalItem / pageSize;
+
+    if (totalItem % pageSize != 0) {
+        totalPage += 1;
+    }
+}
+
+@foreach (var item in Model)
+{
+    <tr id="product-@item.ProductId">
+        <td>@item.ProductName</td>
+        <td class="thumbnail" style="width:50px; height:50px"><img src="~/@item.ProductImage" /></td>
+        <td>@item.ProductPrice</td>
+        <td>@item.ProductQuantity</td>
+        <td>@item.ProductViewed</td>
+        <td>
+            @if (item.ProductStatus)
+            {
+                <span class="label label-success">Đang bán</span>
+            }
+            else
+            {
+                <span class="label label-default">Ngừng bán</span>
+            }
+        </td>
+        <td>
+            <a asp-area="Admin" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="btn btn-default">Xem</a>
+            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Sửa</a>
+            <button type="button" class="btn btn-danger" onclick='return DeleteProduct(@item.ProductId, "#product-@item.ProductId");'>Xóa</button>
+        </td>
+    </tr>
+
+}
+
+<script src="~/lib/jquery-pagination/pagination.js"></script>
+
+<script>
+    $("#Paging").pagination({
+        totalPage: @totalPage,
+        pageSize: @pageSize,
+        currentPage: @currentPage,
+        PAGE: '<li class="page nav" title="{page}"><a class="text" onclick="GetListProduct({page}, @totalPage);">{page}</a></li>',
+        PREV: '<li class="page prev"><a class="text" onclick="GetListProduct(@(currentPage-1), @totalPage);">{prev}</a></li>',
+        NEXT: '<li class="page next"><a class="text" onclick="GetListProduct(@(currentPage+1), @totalPage);">{next}</a></li>',
+        FIRST: '<li class="page nav" title="1"><a class="text" onclick="GetListProduct(1, @totalPage);">1</a></li>',
+        LAST: '<li class="page nav" title="{total}"><a class="text" onclick="GetListProduct(@totalPage, @totalPage);">{total}</a></li>'
+    });
+</script>

@@ -1,0 +1,16 @@
+@model IEnumerable<BanHang.ViewModel.CategoryListViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class=" top-nav rsidebar span_1_of_left">
+    <h3 class="cate">CATEGORIES</h3>
+    <ul class="menu">
+        @foreach (var item in Model)
+        {
+        <li>
+            <a href="#">@item.CategoryName</a>
+        </li>
+        }
+        
+    </ul>
+</div>

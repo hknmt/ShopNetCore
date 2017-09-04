@@ -1,0 +1,114 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Css{
+    <link href="~/lib/jquery-pagination/pagination.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <h2>Danh sách sản phẩm</h2>
+    <hr />
+</div>
+<div class="row form-horizontal">
+    <form id="formList" asp-area="Admin" asp-controller="Product" asp-action="GetListProduct" method="post" data-ajax="true" data-ajax-update="#MainContent">
+    <div class="col-md-4">
+        <label for="ProductName" class="control-label">Tìm sản phẩm</label>
+        <input id="ProductName" name="ProductName" class="form-control" type="text" />
+    </div>
+    <div class="col-md-4">
+        <label for="CategoryId" class="control-label">Danh mục</label>
+        <select id="CategoryId" name="CategoryId" class="form-control" onchange='$("#formList").submit();'>
+            <option selected>Tất cả sản phẩm</option>
+            @foreach(var item in Model)
+            {
+                <option value="@item.CategoryId">@item.CategoryName</option>
+
+            }
+        </select>
+    </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th style="width:200px">Ảnh sản phẩm</th>
+                <th>Giá sản phẩm</th>
+                <th>Số lượng sản phẩm</th>                
+                <th>Người xem</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="MainContent">
+
+        </tbody>
+    </table>
+    <div id="Paging">
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#formList").submit();
+        });
+
+        $("#ProductName").keyup(function () {
+            $("#formList").submit();
+        });
+
+        function DeleteProduct(ProductId, element) {
+            if (confirm("Bạn muốn xóa sản phẩm này không?")) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        id: ProductId
+                    },
+                    url: '/Admin/Product/Delete',
+                    success: function (response) {
+                        if (response["success"]) {
+                            $(element).remove();
+
+                        }
+
+                    },
+                    error: function (response) {
+                        console.log(response);
+
+                    }
+                });
+
+            }
+        }
+
+        function GetListProduct(page, totalPage) {
+            if (page == 0 || page >  totalPage)
+                return;
+
+            var stringSearch = $("#ProductName").val();
+            var categoryId = $("#CategoryId").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Product/GetListProduct',
+                data: {
+                    CategoryId: categoryId,
+                    ProductName: stringSearch,
+                    Page: page
+                },
+                success: function (response) {
+                    $("#MainContent").html(response)
+
+                }
+            });
+        }
+    </script>
+}
+

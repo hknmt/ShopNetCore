@@ -1,0 +1,31 @@
+﻿@model BanHang.Areas.Admin.Models.CategoryViewModel.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <h2>Sửa danh mục</h2>
+    <hr />
+</div>
+<div class="row">
+    <form asp-area="Admin" asp-controller="Category" asp-action="Edit" method="post" class="form-horizontal">
+        <div class="col-md-offset-2 col-md-10 text-danger" asp-validation-summary="All"></div>
+        <input asp-for="CategoryNameOld" type="hidden" />
+        <div class="form-group">
+            <label asp-for="CategoryName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="btn btn-default">Quay lại</a>
+            <button type="submit" class="btn btn-info">Lưu</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @Html.Partial("~/Areas/Admin/Views/Shared/_ValidationScriptsPatial.cshtml")
+}
+

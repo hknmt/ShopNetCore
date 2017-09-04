@@ -1,0 +1,114 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var count = 1;
+}
+<div class="row">
+    <h2>Danh mục</h2>
+    <hr/>
+</div>    
+<div class="row">
+    <button id="Create" type="button" data-toggle="modal" data-target="#CategoryModal" class="btn btn-primary pull-right">Tạo mới</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên danh mục</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="BodyContent">
+            
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    @Html.Partial("~/Areas/Admin/Views/Shared/_ValidationScriptsPatial.cshtml")
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        function DeleteCategory(ProductId, element) {
+            if (confirm("Bạn muốn xóa sản phẩm này không?")) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        id: ProductId
+                    },
+                    url: '/Admin/Category/Delete',
+                    success: function (response) {
+                        if (response["success"])
+                            $(element).remove();
+
+                    },
+                    error: function (response) {
+                        console.log(response);
+
+                    }
+                });
+
+            }
+        }
+
+        function EditCategory(CategoryId) {
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/Category/Edit/' + CategoryId,
+                success: function (response) {
+                    $("#modal-content").html(response);
+                    $("#CategoryModal").modal("show")
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+
+        }
+
+        $("#Create").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/Category/CreatePartial',
+                success: function (response) {
+                    $("#modal-content").html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            });
+        });
+
+        function GetListCategory() {
+            $.ajax({
+                type : 'GET',
+                url : '/Admin/Category/GetListCategory',
+                success: function (response) {
+                    $("#BodyContent").html(response);
+                }
+            });
+        }
+
+        $(document).ready(function () { 
+            GetListCategory();
+        });
+    </script>
+}
+
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="CategoryModalLabel">Tạo mới danh mục</h4>
+            </div>
+            <div class="modal-body" id="modal-content">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick='$("form").submit();'>Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,143 @@
+﻿.box-login-register-arround {
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #f1f1f1;
+    overflow: hidden;
+    min-height: 120px;
+    position: relative;
+    margin-bottom: 15px
+}
+.nav-register {
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    border: none;
+    margin-bottom: 0
+}
+
+@media (min-width:768px) {
+    .nav-register {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 275px;
+        z-index: 4;
+        margin-bottom: 15px
+    }
+}
+
+.nav-register li {
+    display: inline-block;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    width: 100%;
+    float: none
+}
+
+.nav-register li:first-child.active:before, .nav-register li:first-child:hover:before {
+    border-top-left-radius: 2px
+}
+
+.nav-register li:first-child a {
+    border-right: none
+}
+
+.nav-register li.active a:after {
+    border-bottom: 3px solid #14b6f6
+}
+
+.nav-register li.active, .nav-register li:hover {
+    background: #fff
+}
+
+.nav-register li.active a, .nav-register li:hover a {
+    border-bottom: none
+}
+
+.nav-register li.active:before, .nav-register li:hover:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    border: 2px solid #00b6f0
+}
+
+.nav-register li a {
+    text-align: center;
+    position: relative;
+    padding: 10px 10px 10px 20px;
+    display: inline-block;
+    color: #4a4a4a;
+    width: 100%
+}
+
+.nav-register li a:hover {
+    text-decoration: none
+}
+
+.nav-register li a:hover:after {
+    border-bottom: 3px solid #14b6f6
+}
+
+.nav-register li a:link {
+    text-decoration: none
+}
+
+.nav-register li a span {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    text-transform: uppercase
+}
+
+.nav-register li a i {
+    color: #818181;
+    font-size: 11px;
+    font-style: normal
+}
+.register-content {
+    background: #fff;
+    padding: 15px 25px
+}
+
+@media (min-width:768px) {
+    .register-content {
+        width: 484px;
+        float: right;
+        border-left: 1px solid #ccc
+    }
+}
+
+@media (min-width:768px) {
+    .pad-right-0 {
+        padding: 0;
+        margin-top: 30px;
+    }
+}
+
+.register-content .buy-no-login {
+    margin-bottom: 40px
+}
+
+.register-content .form-group .input-wrap {
+    width: 100% !important;
+    float: none !important;
+    clear: both
+}
+
+.register-content .form-group.has-error .form-control-feedback {
+    top: 21px;
+    line-height: 30px
+}
+
+.register-content .form-group.has-error .form-control-feedback:hover {
+    cursor: pointer
+}
+
+.register-content .has-feedback .form-control-feedback, .register-content .has-success .form-control-feedback {
+    line-height: 34px
+}

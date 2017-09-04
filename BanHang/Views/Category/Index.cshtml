@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BanHang.ViewModel.CategoryViewModel.IndexViewModel>
+@{
+    ViewData["Title"] = ViewBag.Category.CategoryName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string CategoryId = ViewData["CategoryId"].ToString();
+    int TotalItem = Int32.Parse(ViewData["TotalItem"].ToString());
+    int PageSize = Int32.Parse(ViewData["PageSize"].ToString());
+    int CurentPage = Int32.Parse(ViewData["CurrentPage"].ToString()); ;
+
+    int TotalPage = TotalItem / PageSize + ((TotalItem % PageSize == 0) ? 0 : 1);
+}
+@section Css {
+    <link href="~/lib/flaviusmatis-simplePagination/simplePagination.css" rel="stylesheet" />
+}
+<div class="women-product">
+    <div class=" w_content">
+        <div class="women">
+            <a href="#">
+                <h4>@ViewBag.Category.CategoryName - <span>@ViewData["TotalItem"] sản phẩm</span> </h4>
+            </a>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- grids_of_4 -->
+    @foreach (var item in Model)
+    {
+    <div class="grid-product">
+        <div class="  product-grid">
+            <div class="content_box">
+                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                    <div class="left-grid-view grid-view-left">
+                        <img src="@item.ProductImage" class="img-responsive watch-right" alt="@item.ProductName" />
+                        <div class="mask">
+                            <div class="info">Quick View</div>
+                        </div>
+
+                    </div>
+                </a>
+                <h4><a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">@item.ProductName</a></h4>
+                <p class="price-sale">@item.ProductPrice.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="clearfix"> </div>
+    <div id="Paging">
+
+    </div>
+    <div class="clearfix"> </div>
+</div>
+@section Scripts{ 
+    <script src="~/lib/flaviusmatis-simplePagination/jquery.simplePagination.js"></script>
+    <script>
+        $("#Paging").pagination({
+            items: @TotalItem,
+            itemsOnPage: @PageSize,
+            currentPage: @CurentPage,
+            hrefTextPrefix: 'Category?CategoryId=@CategoryId&Page='
+        });
+    </script>
+}

@@ -1,0 +1,134 @@
+﻿@model IEnumerable<BanHang.ViewModel.CartViewModel.IndexViewModel>
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var amount = (ViewData["Amount"] != null) ? decimal.Parse(ViewData["Amount"].ToString()) : 0;
+}
+@section Css{ 
+    <link href="~/lib/jquery-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/css/Cart.css" rel="stylesheet" />
+}
+@if (Model == null || Model.Count() == 0)
+{
+    <h2>Giỏ hàng đang trống</h2>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Tiếp tục mua sắm</a>
+
+}
+else
+{
+<div class="col-md-8 pull-left">
+    <h2>Giỏ hàng</h2>
+    <hr/><form asp-controller="Cart" asp-action="Checkout" method="post" data-ajax="true" data-ajax-success="OnSucces">
+        @foreach (var item in Model)
+        {
+        <div class="row shopping-cart-item">
+            <div class="col-xs-3 img-thumnail-custom">
+                <p class="image">
+                    <img class="img-responsive" src="~/@item.ProductImage">
+                </p>
+            </div>
+            <div class="pull-right" style="width:550px">
+                <div class="box-info-product">
+
+                    <p class="name">
+                        <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId" target="_blank">@item.ProductName                                                                                        </a>
+                    </p>
+
+                    <p class="action">
+                        <a href="javascript:void(0);" class="btn btn-link btn-item-delete" data-id="@item.ProductId" onclick="DeleteItem(this);">
+                            Xóa
+                        </a>
+                    </p>
+                </div>
+                <div class="pull-left">
+                    <p class="price">@item.ProductPrice.ToString("C")</p>
+                </div>
+                <div class="pull-right" style="width:110px"> 
+                    <input class="form-control quantity" data-id="@item.ProductId" value="@item.ProductQuantity">
+                </div>
+            </div>
+            <!-- <div class="box-info-discount"></div> -->
+        </div>
+        }
+    </form>
+</div>
+<div class="col-md-4 pull-right" style="margin-top:15px">
+    <div id="right-affix" class="affix-top">
+
+        <div class="each-row">
+
+            <div class="box-style fee">
+
+                <p class="list-info-price">
+                    <span>Tạm tính: </span>
+                    <strong>@amount.ToString("C")</strong>
+                </p>
+            </div>
+            <div class="box-style fee">
+                <div class="total2 clearfix">
+                    <span class="text-label">Thành tiền: </span>
+                    <div class="amount">
+                        <p>
+                            <strong>@amount.ToString("C")</strong>
+                        </p>
+                        <p class="text-right">
+                            <small>(Đã bao gồm VAT)</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-large btn-block btn-danger btn-checkout" onclick="location.href='/Cart/Shipping';return false;">Tiến hành đặt hàng</button>
+
+        </div>
+    </div>
+</div>
+}
+
+    @section Scripts{
+        <script src="~/lib/jquery-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+        <script>
+            $("input.quantity").TouchSpin({
+                min: 1
+            });
+
+            $("input.quantity").change(function () { 
+                var quantity = $(this).val();
+                var id = $(this).data("id");
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cart/AddToCart',
+                    data: {
+                        ProductId: id,
+                        Quantity: quantity
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        location.reload();
+                    },
+                });
+            });
+
+            function DeleteItem(element) {
+                var id = $(element).data("id");
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cart/Delete',
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        location.reload();
+                    },
+                });
+            }
+        </script>
+
+    }

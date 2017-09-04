@@ -1,0 +1,14 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="account">
+    <a href="login.html"><span> </span>Chào @ViewData["CustomerEmail"]</a>
+    <div class="box" style="display: none;">
+        <ul class="user-ajax-customer">
+            <li><a href="/sales/order/history/" title="Đơn hàng của tôi" rel="nofollow">Đơn hàng của tôi</a></li>
+            <li><a title="Tài khoản của tôi" href="/customer/account/edit" rel="nofollow">Tài khoản của tôi</a></li>
+            <li><a rel="nofollow" href="/account/logout" title="Thoát tài khoản">Thoát tài khoản</a></li>
+        </ul>
+    </div>
+</div>

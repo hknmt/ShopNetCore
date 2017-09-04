@@ -1,0 +1,8 @@
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\bin\Debug\netcoreapp1.1\BusinessObject.deps.json
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\bin\Debug\netcoreapp1.1\BusinessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\bin\Debug\netcoreapp1.1\BusinessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\obj\Debug\netcoreapp1.1\BusinessObject.csproj.CoreCompileInputs.cache
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\obj\Debug\netcoreapp1.1\BusinessObject.AssemblyInfo.cs
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\obj\Debug\netcoreapp1.1\BusinessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\obj\Debug\netcoreapp1.1\BusinessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BusinessObject\obj\Debug\netcoreapp1.1\BusinessObject.csprojResolveAssemblyReference.cache

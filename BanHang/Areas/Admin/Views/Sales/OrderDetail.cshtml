@@ -1,0 +1,130 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.SalesViewModel.OrderDetailViewModel>
+@{
+    ViewData["Title"] = "Thông tin hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    decimal sum = 0;
+}
+
+<h2>Thông tin hóa đơn</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-shopping-cart"></i>Chi tiết hóa đơn</h3>
+            </div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Date Added"><i class="glyphicon glyphicon-calendar"></i></button></td>
+                        <td>@ViewBag.Order.CreateAt.ToString("dd-MM-yyyy HH:mm")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> Thông tin khách hàng</h3>
+            </div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Customer"><i class="glyphicon glyphicon-user"></i></button></td>
+                        <td>
+                            @ViewBag.Order.Customer.CustomerFullname
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="E-Mail"><i class="glyphicon glyphicon-envelope"></i></button></td>
+                        <td><a href="@ViewBag.Order.Customer.CustomerEmail">@ViewBag.Order.Customer.CustomerEmail</a></td>
+                    </tr>
+                    <tr>
+                        <td><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Telephone"><i class="glyphicon glyphicon-earphone"></i></button></td>
+                        <td>@ViewBag.Order.Customer.CustomerPhone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-cog"></i> Tình trạng đơn hàng</h3>
+            </div>
+            <form asp-area="Admin" asp-controller="Sales" asp-action="OrderConfirm" method="post">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-control" name="Status">
+                                @if (ViewBag.Order.OrderStatus == null)
+                                {
+                                    <option value="" selected>Chờ duyệt</option>
+                                    <option value="true">Đã duyệt</option>
+                                    <option value="false">Bỏ qua</option>
+                                }
+                                else
+                                {
+                                    <option value="true" selected="@(ViewBag.Order.OrderStatus ? true : false)">Đã duyệt</option>
+                                    <option value="false" selected="@(ViewBag.Order.OrderStatus ? false : true)">Bỏ qua</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="hidden" name="OrderId" value="@ViewBag.Order.OrderId" />
+                            <button class="btn btn-success" type="submit">Xác nhận</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-info-circle"></i> Hóa đơn (#@ViewBag.Order.OrderId)</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 50%;" class="text-left">Địa chỉ thanh toán</th>
+                    <th style="width: 50%;" class="text-left">Địa chỉ chuyển hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-left">@ViewBag.Order.Customer.CustomerFullname<br>@ViewBag.Order.Customer.CustomerPhone<br>@ViewBag.Order.Customer.CustomerAddress</td>
+                    <td class="text-left">@ViewBag.Order.ShipName<br>@ViewBag.Order.ShipPhone<br>@ViewBag.Order.ShipAddress</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-left">Tên sản phẩm</th>
+                    <th class="text-right">Số lượng</th>
+                    <th class="text-right">Giá</th>
+                    <th class="text-right">Tổng tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-left"><a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">@item.Product.ProductName</a> </td>
+                    <td class="text-right">@item.ProductQuantity</td>
+                    <td class="text-right">@item.ProductPrice.ToString("C")</td>
+                    <td class="text-right">@String.Format("{0:C}", item.ProductQuantity * item.ProductPrice, sum += item.ProductQuantity * item.ProductPrice)</td>
+                </tr>
+                }
+                <tr>
+                    <td colspan="3" class="text-right">Tổng tiền</td>
+                    <td class="text-right">@sum.ToString("C")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

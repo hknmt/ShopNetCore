@@ -1,0 +1,89 @@
+﻿@model BanHang.Areas.Admin.Models.ProductViewModel.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var ListCategory = ViewBag.ListCategory;
+}
+<div class="row">
+    <h2>Chỉnh sửa</h2>
+    <hr />
+</div>
+<div class="row">
+    <form asp-area="Admin" asp-controller="Product" enctype="multipart/form-data" asp-action="Edit" method="post" class="form-horizontal">
+        @*<div class="col-md-offset-2 col-md-10 text-danger" asp-validation-summary="All"></div>*@
+        <div class="form-group">
+            <label asp-for="CategoryId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var item in ListCategory)
+                    {
+                        <option value="@item.CategoryId" @{(item.CategoryId == Model.CategoryId ? "selected" : "")}>@item.CategoryName</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+        </div>
+        <input asp-for="ProductId" type="hidden" />
+        <div class="form-group">
+            <label asp-for="ProductName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductImage" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductImage" type="text" />
+                <input name="file" type="file" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductPrice" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductQuantity" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductQuantity" class="form-control" />
+                <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="ProductDescription" class="form-control"></textarea>
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductStatus" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ProductStatus" class="form-control">
+                    <option value="true">Bán</option>
+                    <option value="false">Dừng bán</option>
+                </select>
+                <span asp-validation-for="ProductStatus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-default">Quay lại</a>
+            <button type="submit" class="btn btn-info">Lưu</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @Html.Partial("~/Areas/Admin/Views/Shared/_ValidationScriptsPatial.cshtml")
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('ProductDescription');
+    </script>
+}
+

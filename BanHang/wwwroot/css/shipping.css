@@ -1,0 +1,242 @@
+﻿.row-address-list {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+    overflow: hidden;
+    clear: both
+}
+
+.row-address-list .col-lg-6 {
+    padding: 10px 15px
+}
+
+.address-item {
+    position: relative;
+    margin-bottom: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px
+}
+
+.address-item .default {
+    display: none
+}
+
+.address-item .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px
+}
+
+.address-item .address {
+    font-size: 13px;
+    margin-bottom: 3px
+}
+
+.address-item .phone {
+    font-size: 13px;
+    margin-bottom: 10px
+}
+
+.address-item.is-default {
+    border: 1px dashed #090
+}
+
+.address-item.is-default .default {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: block;
+    font-size: 11px;
+    color: #090
+}
+
+.address-item.is-default .default:hover {
+    text-decoration: underline;
+    cursor: pointer
+}
+
+.btn-custom1.is-blue {
+    background:#00b6f0;
+    color:#fff;
+    border:#029fd1
+}
+.btn-custom1.is-blue:hover {
+    background:#029fd1
+}
+.btn-custom1.is-black {
+    background:#626455;
+    color:#fff;
+    border:#555649
+}
+.btn-custom1.is-black:hover {
+    background:#555649
+}
+.btn-custom1:first-child,.btn-custom1:first-child+button {
+    margin-right:7px
+}
+.btn-custom1:hover {
+    background:#fff
+}
+.address-form {
+    background: #f7f7f7;
+    max-width: 100%;
+    border: none;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -ms-border-radius: 0 0 3px 3px;
+    -o-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    margin: 10px auto 0
+}
+
+.address-form.is-show {
+    margin-top: 20px;
+    display: block;
+    background: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px
+}
+
+.address-form.is-show > .panel-body {
+    padding: 0 15px
+}
+
+.address-form.is-edit .btn-custom2 {
+    display: inline-block !important;
+    width: 47%;
+    margin-right: 1%
+}
+
+.address-form.is-edit .btn-custom3 {
+    display: inline-block;
+    width: 50%
+}
+
+.address-form > .panel-heading {
+    background: #fff;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 700;
+    border: none
+}
+
+.address-form > .panel-body {
+    padding: 15px
+}
+
+.address-form form {
+    max-width: 550px;
+    margin: 0 auto
+}
+
+.address-form .form-group {
+    margin-bottom: 7px
+}
+
+.address-form .form-group.form-group-radio .fa-times {
+    display: none !important
+}
+
+.address-form .form-group.group-radio-k-address label,
+.address-form .form-group.group-radio-k-time label {
+    color: #333
+}
+
+.address-form .form-group label {
+    font-size: 12px;
+    text-align: left
+}
+
+.address-form .form-group textarea {
+    height: 110px
+}
+
+.address-form .form-group .form-control {
+    max-width: 100%;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px
+}
+
+.address-form .form-group .help-block {
+    font-size: 12px
+}
+
+.address-form .form-group .icheck-wrap {
+    font-weight: 400
+}
+
+.address-form .form-group .icheck-wrap input[type=checkbox] {
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
+.address-form .form-group .icheck-wrap > div {
+    margin-right: 5px
+}
+
+.btn-custom2 {
+    width: 49%;
+    background: #f7f7f7;
+    border-color: #e1e1e1;
+    outline-color: #ccc;
+    font-size: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    margin-right: 1%
+}
+
+.btn-custom2:hover {
+    background: #fff
+}
+
+.btn-custom3 {
+    width: 100%;
+    background: #00b6f0;
+    border-color: transparent;
+    outline-color: #ccc;
+    font-size: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    color: #fff
+}
+
+.btn-custom3.btn-block {
+    width: 100%
+}
+
+.btn-custom3:hover {
+    background: #029fd1
+}
+
+.other {
+    font-size: 13px;
+    margin-top: 10px
+}
+
+.other a {
+    color: #007FF0
+}

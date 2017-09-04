@@ -1,0 +1,23 @@
+@model BanHang.Areas.Admin.Models.CategoryViewModel.EditViewModel
+<form asp-area="Admin" asp-controller="Category" asp-action="Edit" method="post" data-ajax="true" data-ajax-success="OnSuccessEdit" class="form-horizontal">
+    <div class="col-md-offset-2 col-md-10 text-danger" asp-validation-summary="All"></div>
+    <input asp-for="CategoryNameOld" type="hidden" />
+    <div class="form-group">
+        <label asp-for="CategoryName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CategoryName" class="form-control" />
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+    </div>
+</form>
+
+<script>
+    var OnSuccessEdit = function (response) {
+        if (response["success"]) {
+            $("#CategoryModal").modal('hide');
+            GetListCategory();
+        }
+
+        $("#modal-content").html(response);
+    };
+</script>

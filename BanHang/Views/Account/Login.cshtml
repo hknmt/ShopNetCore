@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section Css{ 
+    <link href="~/css/login.css" rel="stylesheet" />
+}
+<div class="col-md-offset-2 col-md-8 pad-right-0">
+    <div class="box-login-register-arround">
+        <ul class="nav-register">
+            <li class="active">
+                <a href="javascript:;" alt="login-form">
+                    <span>Đăng nhập</span>
+                    <i>Đã là thành viên của shop</i>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" alt="register-form">
+                    <span>Tạo tài khoản</span>
+                    <i>Dành cho khách hàng mới</i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="register-content">
+            <div id="login-form" class="register-comm-for" style="display:block">
+                @await Html.PartialAsync("~/Views/Account/_LoginPartial.cshtml")
+            </div>
+            <!-- login widget -->
+            <!-- Register widget -->
+            <div id="register-form" class="register-comm-for" style="display:none">
+                @await Html.PartialAsync("~/Views/Account/_RegisterPartial.cshtml")
+            </div>
+            <!-- Register widget -->
+
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        var returnURL = "@(ViewData["returnUrl"] == null ? "/Home/Index" : ViewData["returnUrl"].ToString())";
+
+        var RegisterSuccess = function (reponse) {
+            location.href = returnURL;
+        };
+
+        var LoginSuccess = function (reponse) {
+            location.href = returnURL;
+        };
+
+        
+
+        $('.nav-register a').on('click', function () {
+            var isClassActive = $(this).parent('li').hasClass('active');
+            if (!isClassActive) {
+                var getId = $(this).attr('alt');
+
+                $('.nav-register li').removeClass('active');
+                $(this).parent('li').addClass('active');
+                $('.register-comm-for').hide(0);
+                $('#' + getId).show(0);
+            }
+        });
+    </script>
+}

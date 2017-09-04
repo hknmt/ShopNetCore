@@ -1,0 +1,10 @@
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\bin\Debug\netcoreapp1.1\DataAccessObject.deps.json
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\bin\Debug\netcoreapp1.1\DataAccessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\bin\Debug\netcoreapp1.1\DataAccessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\bin\Debug\netcoreapp1.1\BusinessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\bin\Debug\netcoreapp1.1\BusinessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\obj\Debug\netcoreapp1.1\DataAccessObject.csprojResolveAssemblyReference.cache
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\obj\Debug\netcoreapp1.1\DataAccessObject.csproj.CoreCompileInputs.cache
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\obj\Debug\netcoreapp1.1\DataAccessObject.AssemblyInfo.cs
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\obj\Debug\netcoreapp1.1\DataAccessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\DataAccessObject\obj\Debug\netcoreapp1.1\DataAccessObject.pdb

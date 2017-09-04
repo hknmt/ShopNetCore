@@ -1,0 +1,119 @@
+﻿@model BanHang.ViewModel.CartViewModel.ShippingViewModel
+@{
+    ViewData["Title"] = "Shipping";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@section Css{ 
+    <link href="~/css/shipping.css" rel="stylesheet" />
+}
+
+<h2>Địa chỉ giao hàng</h2>
+<div class="row-address-list">
+    <div class="col-lg-6 col-md-6 col-sm-6 item" id="item-2429888">
+        <div class="panel panel-default address-item is-default">
+            <div class="panel-body">
+                <p class="name">@Model.CustomerFullname</p>
+                <p class="address" title="@Model.CustomerAddress">
+                    Địa chỉ: @Model.CustomerAddress
+                </p>
+                <p class="phone">Điện thoại: @Model.CustomerPhone</p>
+                <p class="action">
+                    <button type="button" class="btn btn-default btn-custom1 saving-address is-blue">
+                        Giao đến địa chỉ này
+                    </button>
+                    <button type="button" class="btn btn-default btn-custom1 edit-address">Sửa</button>
+                </p>
+                <span class="default">Mặc định</span>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="other">
+    Bạn muốn giao hàng đến địa chỉ khác?
+    <a href="javascript:void(0)" id="addNewAddress">
+        Thêm địa chỉ giao hàng mới
+    </a>
+</p>
+<div class="panel panel-default address-form is-edit" style="display: none;">
+    <div class="panel-heading hidden-lg">Cập nhật địa chỉ giao hàng mới</div>
+    <div class="panel-body" id="ajax-content">
+        
+    </div>
+</div>
+
+@section Scripts{ 
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        $("button.edit-address").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Account/UpdateInformation',
+                success: function (response) {
+                    $("#ajax-content").html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");	
+                }
+            });
+
+            $(".address-form").is(":visible") ? $(".address-form").hide(0, function () {
+                $(".address-form").slideDown("slow", function () {
+                    $("html,body").animate({
+                        scrollTop: $(".address-form").offset().top
+                    }, 200)
+                })
+            }) : $(".address-form").slideDown("slow", function () {
+                $("html,body").animate({
+                    scrollTop: $(".address-form").offset().top
+                }, 200)
+            });
+        });
+
+        $('body').on('click', '.js-hide', function (e) {
+            $('.address-form').slideUp('slow');
+            $("html,body").animate({
+                scrollTop: $(".row-address-list").offset().top
+            }, 200)
+        });
+
+        $(".other a").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Cart/OtherInformation',
+                success: function (response) {
+                    $("#ajax-content").html(response);
+                    $("form").removeData("validator");
+                    $("form").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse("form");
+                }
+            });
+
+            $(".address-form").is(":visible") ? $(".address-form").hide(0, function () {
+                $(".address-form").slideDown("slow", function () {
+                    $("html,body").animate({
+                        scrollTop: $(".address-form").offset().top
+                    }, 200)
+                })
+            }) : $(".address-form").slideDown("slow", function () {
+                $("html,body").animate({
+                    scrollTop: $(".address-form").offset().top
+                }, 200)
+            });
+        });
+
+        $(".saving-address").click(function () {
+            $.ajax({
+                type: 'post',
+                url: '/Cart/CheckOut',
+                success: function (response) {
+                    if (response["success"]) {
+                        window.location.href = "/Home/Index";
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.SalesViewModel.IndexViewModel>
+@{ 
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section Css{
+    <link href="~/lib/jquery-pagination/pagination.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <h2>Danh sách đơn hàng</h2>
+    <hr />
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Tên tài khoản</th>
+                <th>Trạng thái</th>
+                <th>Tổng tiền</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="MainContent">
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.Customer.CustomerFullname</td>
+                    <td>
+                        @if (item.OrderStatus == null)
+                        {
+                            <span class='label label-warning'>Chờ duyệt</span>
+                        }
+                        else if (item.OrderStatus.Value)
+                        {
+                            <span class='label label-success'>Đã duyệt</span>
+                        }
+                        else
+                        {
+                            <span class='label label-danger'>Bỏ qua</span>
+
+                        }
+                    </td>
+                    <td>@ViewBag.Total[item.OrderId].ToString("C")</td>
+                    <td>@item.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
+                    <td><a asp-area="Admin" asp-controller="Sales" asp-action="OrderDetail" asp-route-id="@item.OrderId" class="btn btn-primary">Xem chi tiết</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <div id="Paging">
+
+    </div>
+</div>
+

@@ -1,0 +1,16 @@
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BanHang.deps.json
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BanHang.runtimeconfig.json
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BanHang.runtimeconfig.dev.json
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\obj\Debug\netcoreapp1.1\BanHang.csprojResolveAssemblyReference.cache
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\obj\Debug\netcoreapp1.1\BanHang.csproj.CoreCompileInputs.cache
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\obj\Debug\netcoreapp1.1\BanHang.AssemblyInfo.cs
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BanHang.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BanHang.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BusinessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\DataAccessObject.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\Service.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\BusinessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\DataAccessObject.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\bin\Debug\netcoreapp1.1\Service.pdb
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\obj\Debug\netcoreapp1.1\BanHang.dll
+C:\Users\Truong Nguyen\Documents\BaiTapNetCore\BanHang\BanHang\obj\Debug\netcoreapp1.1\BanHang.pdb
