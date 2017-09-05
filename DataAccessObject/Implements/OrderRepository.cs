@@ -6,6 +6,7 @@ using BusinessObject;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace DataAccessObject.Implements
 {
@@ -16,6 +17,35 @@ namespace DataAccessObject.Implements
         public OrderRepository(BanHangDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<int> Count()
+        {
+            var conn = _context.Database.GetDbConnection();
+            var count = 0;
+
+            try
+            {
+                await conn.OpenAsync();
+                using(var command = conn.CreateCommand())
+                {
+                    string query = "SELECT COUNT(0) FROM [Order]";
+                    command.CommandText = query;
+                    DbDataReader reader = await command.ExecuteReaderAsync();
+                    if (reader.HasRows)
+                    {
+                        await reader.ReadAsync();
+                        count = reader.GetInt32(0);
+                    }
+                    reader.Dispose();
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return count;
         }
 
         public async Task<Order> Create(Order data)
@@ -41,7 +71,7 @@ namespace DataAccessObject.Implements
                 .Where(x => x.OrderId == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders(int? page)
         {
             return await _context.Order.Join(_context.Customer, x => x.CustomerId, y => y.CustomerId, (x, y) => new Order {
                 OrderId = x.OrderId,
@@ -52,7 +82,11 @@ namespace DataAccessObject.Implements
                 ShipPhone = x.ShipPhone,
                 OrderStatus = x.OrderStatus,
                 Customer = y
-            }).OrderByDescending(x => x.CreateAt).ToListAsync();
+            })
+            .OrderByDescending(x => x.CreateAt)
+            .Skip(10*((page ?? 1)-1))
+            .Take(10)
+            .ToListAsync();
         }
 
         public async Task SetOrderConfirm(int OrderId, bool OrderStatus)

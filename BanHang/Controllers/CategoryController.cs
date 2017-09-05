@@ -21,7 +21,7 @@ namespace BanHang.Controllers
             _configService = configService;
         }
 
-        public IActionResult Index(int? CategoryId, int? Page)
+        public async Task<IActionResult> Index(int? CategoryId, int? Page)
         {
             if(CategoryId == null)
             {
@@ -29,12 +29,12 @@ namespace BanHang.Controllers
             }
 
             ViewBag.Category = _categoryService.GetCategoryById(CategoryId.Value);
-            ViewData["TotalItem"] = _productService.CountProduct(CategoryId, null, true);
+            ViewData["TotalItem"] = await _productService.CountProduct(CategoryId, null, true);
             ViewData["CurrentPage"] = Page ?? 1;
-            ViewData["PageSize"] = _configService.GetValueByName("PageSize");
+            ViewData["PageSize"] = 10;
             ViewData["CategoryId"] = CategoryId;
 
-            var result = _productService.GetListProduct(CategoryId, null, Page, true);
+            var result = await _productService.GetListProduct(CategoryId, null, Page, true);
 
             var model = result.Select(x => new IndexViewModel {
                     ProductId = x.ProductId,
@@ -43,7 +43,7 @@ namespace BanHang.Controllers
                     ProductPrice = x.ProductPrice
             });
 
-            ViewData["TotalItem"] = _productService.CountProduct(CategoryId, null, true);
+            ViewData["TotalItem"] = await _productService.CountProduct(CategoryId, null, true);
 
             return View(model);
         }

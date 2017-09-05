@@ -9007,11 +9007,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\Service\\Service.csproj",
+      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\Service\\Service.csproj",
       "projectName": "Service",
-      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\Service\\Service.csproj",
+      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\Service\\Service.csproj",
       "packagesPath": "C:\\Users\\Truong Nguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\Service\\obj\\",
+      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Truong Nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9027,11 +9027,11 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj"
+            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj"
             },
-            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\DataAccessObject\\DataAccessObject.csproj": {
-              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\DataAccessObject\\DataAccessObject.csproj"
+            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\DataAccessObject\\DataAccessObject.csproj": {
+              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\DataAccessObject\\DataAccessObject.csproj"
             }
           }
         }

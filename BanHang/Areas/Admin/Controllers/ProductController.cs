@@ -33,9 +33,9 @@ namespace BanHang.Areas.Admin.Controllers
             _fileManager = fileManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var categoryModel = _categoryService.GetListCategory();
+            var categoryModel = await _categoryService.GetListCategory();
 
             var categoryViewModel = categoryModel.Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel
             {
@@ -48,9 +48,10 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.ListCategory = _categoryService.GetListCategory().Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel {
+            var listCategory = await _categoryService.GetListCategory();
+            ViewBag.ListCategory = listCategory.Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
             });
@@ -62,7 +63,8 @@ namespace BanHang.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateViewModel productData)
         {
-            ViewBag.ListCategory = _categoryService.GetListCategory().Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel
+            var listCategory = await _categoryService.GetListCategory();
+            ViewBag.ListCategory = listCategory.Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel
             {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
@@ -89,9 +91,9 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public IActionResult GetListProduct(int? CategoryId, string ProductName, int? Page)
+        public async Task<IActionResult> GetListProduct(int? CategoryId, string ProductName, int? Page)
         {
-            var result = _productService.GetListProduct(CategoryId, ProductName, Page, null);
+            var result = await _productService.GetListProduct(CategoryId, ProductName, Page, null);
             var count = _productService.CountProduct(CategoryId, ProductName, null);
 
             ViewData["totalItem"] = count;
@@ -131,18 +133,20 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]/{id?}")]
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
                 return RedirectToAction("Index", "Product");
 
-            ViewBag.ListCategory = _categoryService.GetListCategory().Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel
+            var listCategory = await _categoryService.GetListCategory();
+
+            ViewBag.ListCategory = listCategory.Select(x => new BanHang.Areas.Admin.Models.CategoryViewModel.IndexViewModel
             {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
             });
 
-            var result = _productService.GetProductById(id.Value);
+            var result = await _productService.GetProductById(id.Value);
 
             var viewModel = new EditViewModel
             {

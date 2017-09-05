@@ -10,7 +10,8 @@ namespace DataAccessObject.Interfaces
     {
         Task<Order> Create(Order data);
         Task<Order> GetOrderById(int id);
-        Task<IEnumerable<Order>> GetOrders();
+        Task<IEnumerable<Order>> GetOrders(int? page);
         Task SetOrderConfirm(int OrderId, bool OrderStatus);
+        Task<int> Count();
     }
 }

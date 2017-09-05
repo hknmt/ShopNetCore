@@ -20,12 +20,12 @@ namespace BanHang.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index(int? id)
+        public async Task<IActionResult> Index(int? id)
         {
             if (id == null)
                 return RedirectToAction("Index", "Home");
 
-            var result = _productService.GetProductById(id.Value);
+            var result = await _productService.GetProductById(id.Value);
 
             if (result == null)
                 return RedirectToAction("Index", "Home");
@@ -39,7 +39,9 @@ namespace BanHang.Controllers
                 ProductQuantity = result.ProductQuantity
             };
 
-            ViewBag.ProductRelated = _productService.GetProductRelated(id.Value)
+            var productRelated = await _productService.GetProductRelated(id.Value);
+
+            ViewBag.ProductRelated = productRelated
                 .Select(x => new ProductRelated {
                     ProductId = x.ProductId,
                     ProductImage = x.ProductImage,
@@ -47,7 +49,7 @@ namespace BanHang.Controllers
                     ProductPrice = x.ProductPrice
                 });
 
-            _productService.AddView(id.Value);
+            await _productService.AddView(id.Value);
 
             return View(model);
         }

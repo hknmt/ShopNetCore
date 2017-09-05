@@ -12,7 +12,6 @@ namespace Service.Implements
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
-        private readonly IProductRepository _productRepository;
 
         public OrderService(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
         {
@@ -30,9 +29,9 @@ namespace Service.Implements
             return await _orderRepository.GetOrderById(id);
         }
 
-        public async Task<IEnumerable<Order>> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders(int? page)
         {
-            return await _orderRepository.GetOrders();
+            return await _orderRepository.GetOrders(page);
         }
 
         public async Task CreateOrderDetail(OrderDetail data)
@@ -53,6 +52,11 @@ namespace Service.Implements
             }
 
             await _orderRepository.SetOrderConfirm(OrderId, OrderStatus);
+        }
+
+        public async Task<int> Count()
+        {
+            return await _orderRepository.Count();
         }
     }
 }

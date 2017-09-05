@@ -29,9 +29,9 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public IActionResult GetListCategory()
+        public async Task<IActionResult> GetListCategory()
         {
-            var result = _categoryService.GetListCategory();
+            var result = await _categoryService.GetListCategory();
 
             var model = result.Select(x => new IndexViewModel
             {
@@ -58,9 +58,9 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public IActionResult Create(CreateViewModel categoryData)
+        public async Task<IActionResult> Create(CreateViewModel categoryData)
         {
-            if (!_categoryService.CheckCategoryExist(categoryData.CategoryName))
+            if (!await _categoryService.CheckCategoryExist(categoryData.CategoryName))
             {
                 ModelState.AddModelError("", "Tên category đang được sử dụng");
                 return PartialView("~/Areas/Admin/Views/Category/PartialView/_CreatePartial.cshtml", categoryData);
@@ -70,7 +70,7 @@ namespace BanHang.Areas.Admin.Controllers
                 CategoryName = categoryData.CategoryName
             };
 
-            _categoryService.Create(category);
+            await _categoryService.Create(category);
 
             return Json(new {
                 success = true
@@ -113,12 +113,12 @@ namespace BanHang.Areas.Admin.Controllers
 
         [Route("[action]/{id?}")]
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if(id == null)
                 return RedirectToAction("Index", "Category");
 
-            var result = _categoryService.GetCategoryById(id.Value);
+            var result = await _categoryService.GetCategoryById(id.Value);
 
             if(result == null)
                 return RedirectToAction("Index", "Category");

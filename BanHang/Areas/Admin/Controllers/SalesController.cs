@@ -25,33 +25,9 @@ namespace BanHang.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var result = await _orderService.GetOrders();
+            ViewData["TotalOrder"] = await _orderService.Count();
 
-            var model = result.Select(x => new IndexViewModel {
-                CreateAt = x.CreateAt,
-                Customer = x.Customer,
-                CustomerId = x.CustomerId,
-                OrderId = x.OrderId,
-                ShipAddress = x.ShipAddress,
-                ShipName = x.ShipName,
-                ShipPhone = x.ShipPhone,
-                OrderStatus = x.OrderStatus
-            });
-
-            Hashtable Total = new Hashtable();
-
-            foreach(var item in model)
-            {
-                var orderDetail = await _orderService.GetOrderDetail(item.OrderId);
-                decimal sum = 0;
-                foreach (var detail in orderDetail)
-                    sum += detail.ProductPrice;
-                Total.Add(item.OrderId, sum);
-            }
-
-            ViewBag.Total = Total;
-
-            return View(model);
+            return View();
         }
 
         [HttpGet]
@@ -101,6 +77,39 @@ namespace BanHang.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index", "Sales");
+        }
+
+        [HttpGet]
+        [Route("[action]/{page?}")]
+        public async Task<PartialViewResult> GetListOrders(int? page)
+        {
+            var result = await _orderService.GetOrders(page);
+
+            var model = result.Select(x => new ListOrdersViewModel {
+                CreateAt = x.CreateAt,
+                Customer = x.Customer,
+                CustomerId =x.CustomerId,
+                OrderId = x.OrderId,
+                OrderStatus = x.OrderStatus,
+                ShipAddress = x.ShipAddress,
+                ShipName = x.ShipName,
+                ShipPhone =x.ShipPhone
+            });
+
+            Hashtable Total = new Hashtable();
+
+            foreach (var item in model)
+            {
+                var orderDetail = await _orderService.GetOrderDetail(item.OrderId);
+                decimal sum = 0;
+                foreach (var detail in orderDetail)
+                    sum += detail.ProductPrice * detail.ProductQuantity;
+                Total.Add(item.OrderId, sum);
+            }
+
+            ViewBag.Total = Total;
+
+            return PartialView("~/Areas/Admin/Views/Sales/_GetListOrdersPartial.cshtml", model);
         }
     }
 }

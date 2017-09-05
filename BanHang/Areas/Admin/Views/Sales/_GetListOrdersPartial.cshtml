@@ -1,0 +1,30 @@
+﻿@model IEnumerable<BanHang.Areas.Admin.Models.SalesViewModel.ListOrdersViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.OrderId</td>
+        <td>@item.Customer.CustomerFullname</td>
+        <td>
+            @if (item.OrderStatus == null)
+            {
+                <span class='label label-warning'>Chờ duyệt</span>
+            }
+            else if (item.OrderStatus.Value)
+            {
+                <span class='label label-success'>Đã duyệt</span>
+            }
+            else
+            {
+                <span class='label label-danger'>Bỏ qua</span>
+
+            }
+        </td>
+        <td>@ViewBag.Total[item.OrderId].ToString("C")</td>
+        <td>@item.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
+        <td><a asp-area="Admin" asp-controller="Sales" asp-action="OrderDetail" asp-route-id="@item.OrderId" class="btn btn-primary">Xem chi tiết</a></td>
+    </tr>
+
+}

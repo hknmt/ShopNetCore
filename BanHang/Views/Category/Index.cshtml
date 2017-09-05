@@ -8,7 +8,7 @@
     int PageSize = Int32.Parse(ViewData["PageSize"].ToString());
     int CurentPage = Int32.Parse(ViewData["CurrentPage"].ToString()); ;
 
-    int TotalPage = TotalItem / PageSize + ((TotalItem % PageSize == 0) ? 0 : 1);
+    var TotalPage = Math.Ceiling(TotalItem*1.0 / PageSize);
 }
 @section Css {
     <link href="~/lib/flaviusmatis-simplePagination/simplePagination.css" rel="stylesheet" />

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using BusinessObject;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DataAccessObject.Interfaces
 {
     public interface ICategoryRepository
     {
-        int Create(Category category);
-        Category GetCategoryById(int id);
-        IEnumerable<Category> GetListCategory();
-        bool CheckCategoryExist(string CategoryName);
-        void Delete(int id);
-        void Edit(Category categoryData, int id);
+        Task<int> Create(Category category);
+        Task<Category> GetCategoryById(int id);
+        Task<IEnumerable<Category>> GetListCategory();
+        Task<bool> CheckCategoryExist(string CategoryName);
+        Task Delete(int id);
+        Task Edit(Category categoryData, int id);
     }
 }

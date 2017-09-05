@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace Service.Implements
 {
@@ -19,9 +20,9 @@ namespace Service.Implements
             _configRepository = configRepository;
         }
 
-        public bool AddCart(int ProductId, int Quantity)
+        public async Task<bool> AddCart(int ProductId, int Quantity)
         {
-            var Product = _productRepository.GetProductById(ProductId);
+            var Product = await _productRepository.GetProductById(ProductId);
 
             if (Product == null)
                 return false;
@@ -38,44 +39,44 @@ namespace Service.Implements
             return true;
         }
 
-        public void AddView(int ProductId)
+        public async Task AddView(int ProductId)
         {
-            _productRepository.AddView(ProductId);
+            await _productRepository.AddView(ProductId);
         }
 
-        public long CountProduct(int? CategoryId, string ProductName, bool? Status)
+        public async Task<int> CountProduct(int? CategoryId, string ProductName, bool? Status)
         {
-            return _productRepository.CountProduct(CategoryId, ProductName, Status);
+            return await _productRepository.CountProduct(CategoryId, ProductName, Status);
         }
 
-        public void Create(Product productData)
+        public async Task Create(Product productData)
         {
-            _productRepository.Create(productData);
+            await _productRepository.Create(productData);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _productRepository.Delete(id);
+            await _productRepository.Delete(id);
         }
 
-        public void Edit(Product productData, int id)
+        public async Task Edit(Product productData, int id)
         {
-            _productRepository.Edit(productData, id);
+           await _productRepository.Edit(productData, id);
         }
 
-        public IEnumerable<Product> GetListProduct(int? CategoryId, string ProductName, int? Page, bool? Status)
+        public async Task<IEnumerable<Product>> GetListProduct(int? CategoryId, string ProductName, int? Page, bool? Status)
         {
-            return _productRepository.GetListProduct(CategoryId, ProductName, Page, Status);
+            return await _productRepository.GetListProduct(CategoryId, ProductName, Page, Status);
         }
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            return _productRepository.GetProductById(id);
+            return await _productRepository.GetProductById(id);
         }
 
-        public IEnumerable<Product> GetProductRelated(int ProductId)
+        public async Task<IEnumerable<Product>> GetProductRelated(int ProductId)
         {
-            return _productRepository.GetProductRelated(ProductId);
+            return await _productRepository.GetProductRelated(ProductId);
         }
     }
 }

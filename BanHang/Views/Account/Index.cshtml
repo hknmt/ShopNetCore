@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section Css{ 
+<link href="~/css/account.css" rel="stylesheet" />
+}
+<div class="wrap">
+    <div class="container-full">
+        <div class="row-style-1">
+            <div class="menu-left">
+                <div class="profiles">
+                    <p class="image"><img src="~/images/avatar.png" alt="" width="45" height="45"></p>
+                    <p class="name">Tài khoản của</p>
+                    <h6>Nguyễn Minh Trường</h6>
+                </div>
+                <div class="menu dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        Danh mục <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <!--  <li class="">
+                            <a href="https://tiki.vn/customer/account/index">Thông tin chung</a>
+                        </li> -->
+                        <li class="">
+                            <a href="https://tiki.vn/customer/account/edit"><i class="ico ico-user"></i> <span>Thông tin tài khoản</span><!-- <span class='noti-nav'>Mới</span> --></a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/notification"><i class="ico ico-ic-notifications"></i> <span>Thông báo của tôi</span> <span class="num-noti-nav">43</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="https://tiki.vn/sales/order/history"> <i class="ico ico-ic-my-order"></i> <span>Quản lý đơn hàng</span></a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/address"> <i class="ico ico-ic-location "></i> <span>Sổ địa chỉ</span> </a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/paymentcard"><i class="ico ico-ic-credit-card"></i> <span>Thông tin thanh toán </span></a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/nhan-xet-san-pham-ban-da-mua"><i><img src="https://vcdn.tikicdn.com/assets/img/icon/ico-review.svg"></i> Nhận xét sản phẩm đã mua</a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/danh-rieng-cho-ban"><i class="ico ico-ic_seen"></i> Sản phẩm bạn đã xem</a>
+                        </li>
+
+                        <li class="">
+                            <a href="https://tiki.vn/customer/wishlist"><i class="ico ico-ic-favorite"></i> <span> Sản phẩm yêu thích</span></a>
+                        </li>
+
+                        <li class="">
+                            <a href="https://tiki.vn/customer/save_for_later"><i class="ico ico-cart"></i> <span> Sản phẩm mua sau</span></a>
+                        </li>
+
+                        <li class="">
+                            <a href="https://tiki.vn/customer/review/"><i class="ico ico-ic-star-half-border"></i> <span> Nhận xét của tôi</span></a>
+
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/productquestion"><i class="ico ico-ic-question"></i> <span> Hỏi đáp</span></a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/reward"><i class="ico ico-ic-money"></i> <span> Quản lý Tiki Xu của tôi</span></a>
+                        </li>
+                        <li class="">
+                            <a href="https://tiki.vn/customer/bookcare/index"><i class="ico ico-ic-bookcare"></i> <span> Book Care của tôi</span></a>
+                        </li>
+                        <!-- <li class="hidden-md hidden-lg">
+                            <a href="https://tiki.vn/customer/account/logout">Thoát tài khoản</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="content-right">
+                <h1 class="have-margin">Đơn hàng của tôi</h1>
+
+                <div class="dashboard-order have-margin">
+                    <table class="table-responsive-2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span class="hidden-xs hidden-sm hidden-md">Mã đơn hàng</span>
+                                    <span class="hidden-lg">Code</span>
+                                </th>
+                                <th>Ngày mua</th>
+                                <th>Sản phẩm</th>
+                                <th>Tổng tiền</th>
+                                <th>
+                                    <span class="hidden-xs hidden-sm hidden-md">Trạng thái <br> đơn hàng</span>
+                                    <span class="hidden-lg">Trạng thái</span>
+                                </th>
+                                <!--                            <th></th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="/sales/order/view?code=19654140">19654140</a></td>
+                                <td>30/07/2017</td>
+                                <td>[Gift] - Mã Coupon B2SVPP05 Giảm Thêm 5% Cho Đơn Hàng Văn Phòng Phẩm (Hạn Sử Dụng 31.08)...và 01 sản phẩm khác</td>
+                                <td>145.200&nbsp;₫</td>
+                                <!--                                <td><span class="color--->
+                                <!--">-->
+                                <!--</span></td>-->
+                                <td>
+                                    <span class="order-status">
+                                        Giao hàng thành công
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="list-pager">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

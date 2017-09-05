@@ -19,7 +19,8 @@ namespace BanHang.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var result = _categoryService.GetListCategory().Select(x => new CategoryListViewModel {
+            var listCategory = await _categoryService.GetListCategory();
+            var result = listCategory.Select(x => new CategoryListViewModel {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
             });

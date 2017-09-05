@@ -1,7 +1,8 @@
-﻿@model IEnumerable<BanHang.Areas.Admin.Models.SalesViewModel.IndexViewModel>
+﻿
 @{ 
     ViewData["Title"] = "Sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var totalPage = Math.Ceiling((int)ViewData["TotalOrder"] / 10.0);
 }
 @section Css{
     <link href="~/lib/jquery-pagination/pagination.css" rel="stylesheet" />
@@ -24,36 +25,41 @@
             </tr>
         </thead>
         <tbody id="MainContent">
-            @foreach(var item in Model)
-            {
-                <tr>
-                    <td>@item.OrderId</td>
-                    <td>@item.Customer.CustomerFullname</td>
-                    <td>
-                        @if (item.OrderStatus == null)
-                        {
-                            <span class='label label-warning'>Chờ duyệt</span>
-                        }
-                        else if (item.OrderStatus.Value)
-                        {
-                            <span class='label label-success'>Đã duyệt</span>
-                        }
-                        else
-                        {
-                            <span class='label label-danger'>Bỏ qua</span>
-
-                        }
-                    </td>
-                    <td>@ViewBag.Total[item.OrderId].ToString("C")</td>
-                    <td>@item.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
-                    <td><a asp-area="Admin" asp-controller="Sales" asp-action="OrderDetail" asp-route-id="@item.OrderId" class="btn btn-primary">Xem chi tiết</a></td>
-                </tr>
-
-            }
+            
         </tbody>
     </table>
     <div id="Paging">
-
+        <ul class="sync-pagination"></ul>
     </div>
 </div>
+
+@section Scripts{ 
+    <script src="~/lib/esimakin-twbs-pagination/jquery.twbsPagination.min.js"></script>
+    <script>
+        $('.sync-pagination').twbsPagination({
+            totalPages: @totalPage,
+            onPageClick: function (evt, page) {
+                $.ajax({
+                    type: 'get',
+                    url: '/Admin/Sales/GetListOrders/' + page,
+                    success: function (response) {
+                        $("#MainContent").html(response)
+
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () { 
+            $.ajax({
+                type: 'get',
+                url: '/Admin/Sales/GetListOrders/' + 1,
+                success: function (response) {
+                    $("#MainContent").html(response)
+
+                }
+            });
+        });
+    </script>
+}
 

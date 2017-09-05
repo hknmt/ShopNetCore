@@ -41,9 +41,10 @@ namespace BanHang.Controllers
             return View();
         }
 
-        public IActionResult GetCategoryList()
+        public async Task<IActionResult> GetCategoryList()
         {
-            var result = _categoryService.GetListCategory().Select(x => new CategoryListViewModel {
+            var listCategory = await _categoryService.GetListCategory();
+            var result = listCategory.Select(x => new CategoryListViewModel {
                 CategoryId = x.CategoryId,
                 CategoryName = x.CategoryName
             });

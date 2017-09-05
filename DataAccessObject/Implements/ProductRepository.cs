@@ -6,37 +6,36 @@ using DataAccessObject.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace DataAccessObject.Implements
 {
     public class ProductRepository : IProductRepository
     {
         private readonly BanHangDbContext _context;
-        private readonly IConfigRepository _config;
 
-        public ProductRepository(BanHangDbContext context, IConfigRepository config)
+        public ProductRepository(BanHangDbContext context)
         {
             _context = context;
-            _config = config;
         }
 
-        public void AddView(int ProductId)
+        public async Task AddView(int ProductId)
         {
-            var Product = _context.Product.Where(x => x.ProductId == ProductId).FirstOrDefault();
+            var Product = await _context.Product.Where(x => x.ProductId == ProductId).FirstOrDefaultAsync();
 
             Product.ProductViewed += 1;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public long CountProduct(int? CategoryId, string ProductName, bool? Status)
+        public async Task<int> CountProduct(int? CategoryId, string ProductName, bool? Status)
         {
             var conn = _context.Database.GetDbConnection();
             var count = 0;
             var where = false;
             try
             {
-                conn.Open();
+                await conn.OpenAsync();
                 using(var command = conn.CreateCommand())
                 {
                     string query = "SELECT COUNT(0) FROM [Product]";
@@ -73,14 +72,12 @@ namespace DataAccessObject.Implements
                     }
                     
                     command.CommandText = query;
-                    DbDataReader reader = command.ExecuteReader();
+                    DbDataReader reader = await command.ExecuteReaderAsync();
 
                     if (reader.HasRows)
                     {
-                        while (reader.Read())
-                        {
-                            count = reader.GetInt32(0);
-                        }
+                        await reader.ReadAsync();
+                        count = reader.GetInt32(0);
                     }
                     reader.Dispose();
                 }
@@ -93,26 +90,26 @@ namespace DataAccessObject.Implements
             return count;
         }
 
-        public void Create(Product productData)
+        public async Task Create(Product productData)
         {
-            _context.Product.Add(productData);
-            _context.SaveChanges();
+            await _context.Product.AddAsync(productData);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var result = _context.Product.FirstOrDefault(x => x.ProductId == id);
+            var result = await _context.Product.FirstOrDefaultAsync(x => x.ProductId == id);
 
             if (result != null)
             {
                 _context.Product.Remove(result);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void Edit(Product productData, int id)
+        public async Task Edit(Product productData, int id)
         {
-            var result = _context.Product.FirstOrDefault(x => x.ProductId == id);
+            var result = await _context.Product.FirstOrDefaultAsync(x => x.ProductId == id);
 
             if(result != null)
             {
@@ -124,12 +121,12 @@ namespace DataAccessObject.Implements
                 result.ProductStatus = productData.ProductStatus;
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Product> GetListProduct(int? CategoryId, string ProductName, int? Page, bool? Status)
+        public async Task<IEnumerable<Product>> GetListProduct(int? CategoryId, string ProductName, int? Page, bool? Status)
         {
-            int pageSize = int.Parse(_config.GetValueByName("PageSize"));
+            int pageSize = 10;
             int currentPage = Page ?? 1;
             int skipRow = (currentPage - 1) * pageSize;
 
@@ -139,37 +136,37 @@ namespace DataAccessObject.Implements
                 {
                     if (string.IsNullOrWhiteSpace(ProductName))
                     {
-                        return _context.Product
+                        return await _context.Product
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                     else
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.ProductName.Contains(ProductName))
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                 }
                 else
                 {
                     if (string.IsNullOrWhiteSpace(ProductName))
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.CategoryId == CategoryId.Value)
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                     else
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.CategoryId == CategoryId.Value && x.ProductName.Contains(ProductName))
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                 }
             }
@@ -179,58 +176,58 @@ namespace DataAccessObject.Implements
                 {
                     if (string.IsNullOrWhiteSpace(ProductName))
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.ProductStatus == Status)
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                     else
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.ProductStatus == Status)
                             .Where(x => x.ProductName.Contains(ProductName))
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                 }
                 else
                 {
                     if (string.IsNullOrWhiteSpace(ProductName))
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.CategoryId == CategoryId.Value && x.ProductStatus == Status)
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                     else
                     {
-                        return _context.Product
+                        return await _context.Product
                             .Where(x => x.CategoryId == CategoryId.Value && x.ProductName.Contains(ProductName) && x.ProductStatus == Status)
                             .OrderBy(x => x.ProductName)
                             .Skip(skipRow)
-                            .Take(pageSize).ToList();
+                            .Take(pageSize).ToListAsync();
                     }
                 }
             }
         }
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            return _context.Product.FirstOrDefault(x => x.ProductId == id);
+            return await _context.Product.FirstOrDefaultAsync(x => x.ProductId == id);
         }
 
-        public IEnumerable<Product> GetProductRelated(int ProductId)
+        public async Task<IEnumerable<Product>> GetProductRelated(int ProductId)
         {
-            var Category = _context.Product.Where(x => x.ProductId == ProductId).FirstOrDefault();
+            var Category = await _context.Product.Where(x => x.ProductId == ProductId).FirstOrDefaultAsync();
 
-            var Related = _context.Product
+            var Related = await _context.Product
                 .Where(x => x.CategoryId == Category.CategoryId && x.ProductStatus == true && x.ProductId != ProductId)
                 .OrderBy(x => x.ProductViewed)
                 .Take(10)
-                .ToList();
+                .ToListAsync();
 
             return Related;
         }

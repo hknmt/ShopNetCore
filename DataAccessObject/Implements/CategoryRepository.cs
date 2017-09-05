@@ -5,6 +5,7 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using DataAccessObject.Interfaces;
+using System.Threading.Tasks;
 
 namespace DataAccessObject.Implements
 {
@@ -17,28 +18,28 @@ namespace DataAccessObject.Implements
             _context = context;
         }
 
-        public int Create(Category category)
+        public async Task<int> Create(Category category)
         {
-            var result = _context.Category.Add(category);
+            var result = await _context.Category.AddAsync(category);
             
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return result.Entity.CategoryId;
         }
 
-        public Category GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
-            return _context.Category.FirstOrDefault(x => x.CategoryId == id);
+            return await _context.Category.FirstOrDefaultAsync(x => x.CategoryId == id);
         }
 
-        public IEnumerable<Category> GetListCategory()
+        public async Task<IEnumerable<Category>> GetListCategory()
         {
-            return _context.Category.ToList();
+            return await _context.Category.ToListAsync();
         }
 
-        public bool CheckCategoryExist(string CategoryName)
+        public async Task<bool> CheckCategoryExist(string CategoryName)
         {
-            var result = _context.Category.Where(x => x.CategoryName == CategoryName).FirstOrDefault();
+            var result = await _context.Category.Where(x => x.CategoryName == CategoryName).FirstOrDefaultAsync();
 
             if (result == null)
                 return true;
@@ -46,27 +47,27 @@ namespace DataAccessObject.Implements
             return false;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var Category = _context.Category.FirstOrDefault(x => x.CategoryId == id);
+            var Category = await _context.Category.FirstOrDefaultAsync(x => x.CategoryId == id);
 
             if (Category != null)
             {
                 _context.Category.Remove(Category);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void Edit(Category categoryData, int id)
+        public async Task Edit(Category categoryData, int id)
         {
-            var Category = _context.Category.FirstOrDefault(x => x.CategoryId == id);
+            var Category = await _context.Category.FirstOrDefaultAsync(x => x.CategoryId == id);
 
             if(Category != null)
             {
                 Category.CategoryName = categoryData.CategoryName;
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

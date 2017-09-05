@@ -8471,11 +8471,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj",
+      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj",
       "projectName": "BusinessObject",
-      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj",
+      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj",
       "packagesPath": "C:\\Users\\Truong Nguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\obj\\",
+      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Truong Nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",

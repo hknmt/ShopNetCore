@@ -5,6 +5,7 @@ using BusinessObject;
 using DataAccessObject.Interfaces;
 using DataAccessObject.Redis.Interfaces;
 using Service.Interfaces;
+using System.Threading.Tasks;
 
 namespace Service.Implements
 {
@@ -19,36 +20,36 @@ namespace Service.Implements
             _redisRepository = redisRepository;
         }
 
-        public bool CheckCategoryExist(string CategoryName)
+        public async Task<bool> CheckCategoryExist(string CategoryName)
         {
-            return _categoryRepository.CheckCategoryExist(CategoryName);
+            return await _categoryRepository.CheckCategoryExist(CategoryName);
         }
 
-        public void Create(Category category)
+        public async Task Create(Category category)
         {
-            var result = _categoryRepository.Create(category);
+            var result = await _categoryRepository.Create(category);
 
             _redisRepository.Set("Category_" + result, category, 10);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _categoryRepository.Delete(id);
+            await _categoryRepository.Delete(id);
         }
 
-        public void Edit(Category categoryData, int id)
+        public async Task Edit(Category categoryData, int id)
         {
-            _categoryRepository.Edit(categoryData, id);
+            await _categoryRepository.Edit(categoryData, id);
         }
 
-        public Category GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
-            return _categoryRepository.GetCategoryById(id);
+            return await _categoryRepository.GetCategoryById(id);
         }
 
-        public IEnumerable<Category> GetListCategory()
+        public async Task<IEnumerable<Category>> GetListCategory()
         {
-            return _categoryRepository.GetListCategory();
+            return await _categoryRepository.GetListCategory();
         }
     }
 }

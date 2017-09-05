@@ -11,8 +11,9 @@ namespace Service.Interfaces
         Task<Order> CreateOrder(Order data);
         Task CreateOrderDetail(OrderDetail data);
         Task<Order> GetOrderById(int id);
-        Task<IEnumerable<Order>> GetOrders();
+        Task<IEnumerable<Order>> GetOrders(int? page);
         Task<IEnumerable<OrderDetail>> GetOrderDetail(int OrderId);
         Task SetOrderConfirm(int OrderId, bool OrderStatus);
+        Task<int> Count();
     }
 }

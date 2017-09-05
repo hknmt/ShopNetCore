@@ -8984,11 +8984,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\DataAccessObject\\DataAccessObject.csproj",
+      "projectUniqueName": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\DataAccessObject\\DataAccessObject.csproj",
       "projectName": "DataAccessObject",
-      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\DataAccessObject\\DataAccessObject.csproj",
+      "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\DataAccessObject\\DataAccessObject.csproj",
       "packagesPath": "C:\\Users\\Truong Nguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\DataAccessObject\\obj\\",
+      "outputPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\DataAccessObject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Truong Nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9004,8 +9004,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\BanHang\\BusinessObject\\BusinessObject.csproj"
+            "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "C:\\Users\\Truong Nguyen\\Documents\\BaiTapNetCore\\ShopNetCore\\BusinessObject\\BusinessObject.csproj"
             }
           }
         }

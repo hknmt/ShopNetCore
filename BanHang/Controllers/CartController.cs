@@ -31,7 +31,7 @@ namespace BanHang.Controllers
             _orderService = orderService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (String.IsNullOrEmpty(_session.GetString("Cart")))
                 return View();
@@ -44,7 +44,7 @@ namespace BanHang.Controllers
 
             foreach(var item in session)
             {
-                var result = _productService.GetProductById(item.ProductId);
+                var result = await _productService.GetProductById(item.ProductId);
 
                 amount += item.Quantity * result.ProductPrice;
 
@@ -97,7 +97,7 @@ namespace BanHang.Controllers
 
             foreach(var item in ListProduct)
             {
-                var product = _productService.GetProductById(item.ProductId);
+                var product = await _productService.GetProductById(item.ProductId);
                 await _orderService.CreateOrderDetail(new OrderDetail {
                     OrderId = order.OrderId,
                     ProductId = item.ProductId,
@@ -137,9 +137,9 @@ namespace BanHang.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart(int ProductId, int? Quantity)
+        public async Task<IActionResult> AddToCart(int ProductId, int? Quantity)
         {
-            var ProductObj = _productService.GetProductById(ProductId);
+            var ProductObj = await _productService.GetProductById(ProductId);
 
             if (ProductObj == null)
                 return Json(new
