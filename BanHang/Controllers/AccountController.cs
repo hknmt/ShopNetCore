@@ -16,16 +16,67 @@ namespace BanHang.Controllers
         private readonly ICustomerService _customerService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession _session => _httpContextAccessor.HttpContext.Session;
+        private readonly IOrderService _orderService;
 
-        public AccountController(ICustomerService customerService, IHttpContextAccessor httpContextAccessor)
+        public AccountController(ICustomerService customerService, IHttpContextAccessor httpContextAccessor, IOrderService orderService)
         {
             _customerService = customerService;
             _httpContextAccessor = httpContextAccessor;
+            _orderService = orderService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            if (_session.GetInt32("CustomerId") == null)
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Account/OrderHistory" });
+
+            return RedirectToAction("OrderHistory", "Account");
+        }
+
+        public async Task<IActionResult> ViewOrder(int? OrderId)
+        {
+            if (OrderId == null)
+                return RedirectToAction("OrderHistory", "Account");
+
+            if (_session.GetInt32("CustomerId") == null)
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Account/OrderHistory" });
+
+            var order = await _orderService.GetOrderById(OrderId.Value);
+
+            if(order == null)
+                return RedirectToAction("OrderHistory", "Account");
+
+            var model = new ViewOrderViewModel
+            {
+                OrderId = order.OrderId,
+                CreateAt = order.CreateAt,
+                OrderStatus = order.OrderStatus,
+                ShipAddress = order.ShipAddress,
+                ShipName = order.ShipName,
+                ShipPhone = order.ShipPhone,
+                OrderDetail = await _orderService.GetOrderDetail(order.OrderId)
+            };
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> OrderHistory(int? page)
+        {
+            if (_session.GetInt32("CustomerId") == null)
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Account/OrderHistory" });
+
+            var CustomerId = _session.GetInt32("CustomerId").Value;
+            var orders = await _orderService.GetOrdersByCustomerId(CustomerId, page);
+            var model = orders.Select(x => new OrderHistoryViewModel
+            {
+                CreateAt = x.CreateAt,
+                OrderId = x.OrderId,
+                OrderStatus = x.OrderStatus,
+                ItemFirst = x.OrderDetail.First().Product.ProductName,
+                NumberItem = x.OrderDetail.Count(),
+                OrderTotal = x.OrderDetail.Sum(y => y.ProductQuantity * y.ProductPrice)
+            });
+            return View(model);
         }
 
         public IActionResult Login(string returnUrl = null)
@@ -131,6 +182,65 @@ namespace BanHang.Controllers
         {
             _session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            if(_session.GetInt32("CustomerId") == null)
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Account/Edit" });
+
+            var CustomerId = _session.GetInt32("CustomerId").Value;
+            var customer = await _customerService.GetCustomerById(CustomerId);
+
+            var model = new EditViewModel
+            {
+                CustomerAddress = customer.CustomerAddress,
+                CustomerFullname = customer.CustomerFullname,
+                CustomerPassword = customer.CustomerPassword,
+                CustomerPhone = customer.CustomerPhone,
+                CustomerEmail = customer.CustomerEmail
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel data)
+        {
+            if(!ModelState.IsValid)
+                return Json(new
+                {
+                    success = false,
+                    message = "Thay đổi thông tin thất bại"
+                });
+
+            var CustomerId = _session.GetInt32("CustomerId").Value;
+
+            var customer = await _customerService.GetCustomerById(CustomerId);
+
+            if (!string.IsNullOrWhiteSpace(data.NewPassword))
+            {
+                if (customer.CustomerPassword != data.CustomerPassword)
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Sai mật khẩu"
+                    });
+
+                await _customerService.UpdatePassword(CustomerId, data.NewPassword);
+            }
+
+            customer.CustomerAddress = data.CustomerAddress;
+            customer.CustomerFullname = data.CustomerFullname;
+            customer.CustomerPhone = data.CustomerPhone;
+
+            await _customerService.UpdateInformation(customer);
+
+            return Json(new
+            {
+                success = true,
+                message = "Thay đổi thông tin thành công"
+            });
         }
     }
 }

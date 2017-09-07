@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section Css{
+    <link href="~/css/account.css" rel="stylesheet" />
+}
+<div class="wrap">
+    <div class="container-full">
+        <div class="row-style-1">
+            <div class="menu-left">
+                @await Component.InvokeAsync("AccountPanel")
+            </div>
+            <div class="content-right">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+    @RenderSection("Scripts", required: false)
+}
+

@@ -41,5 +41,10 @@ namespace Service.Implements
         {
             return await _customerReposistory.UpdateInformation(data);
         }
+
+        public async Task UpdatePassword(int CustomerId, string NewPassword)
+        {
+            await _customerReposistory.UpdatePassword(CustomerId, NewPassword);
+        }
     }
 }

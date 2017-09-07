@@ -28,7 +28,7 @@ namespace BanHang.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Category = _categoryService.GetCategoryById(CategoryId.Value);
+            ViewBag.Category = await _categoryService.GetCategoryById(CategoryId.Value);
             ViewData["TotalItem"] = await _productService.CountProduct(CategoryId, null, true);
             ViewData["CurrentPage"] = Page ?? 1;
             ViewData["PageSize"] = 10;

@@ -1,0 +1,18 @@
+﻿<div class="profiles">
+    <p class="image"><img src="~/images/avatar.png" alt="" width="45" height="45"></p>
+    <p class="name">Tài khoản của</p>
+    <h6>@ViewData["CustomerFullname"]</h6>
+</div>
+<div class="menu dropdown">
+    <button class="btn btn-default dropdown-toggle btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        Danh mục <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Edit" ? "active" : "") ">
+            <a asp-controller="Account" asp-action="Edit"><i class="glyphicon glyphicon-user"></i> <span> Thông tin tài khoản</span></a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "OrderHistory" ? "active" : "") ">
+            <a asp-controller="Account" asp-action="OrderHistory"><i class="glyphicon glyphicon-list-alt"></i> <span>Quản lý đơn hàng</span></a>
+        </li>
+    </ul>
+</div>

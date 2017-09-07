@@ -8,9 +8,10 @@ using DataAccessObject;
 namespace DataAccessObject.Migrations
 {
     [DbContext(typeof(BanHangDbContext))]
-    partial class BanHangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170907033137_103007092017")]
+    partial class _103007092017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

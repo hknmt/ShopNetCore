@@ -55,5 +55,12 @@ namespace DataAccessObject.Implements
 
             return true;
         }
+
+        public async Task UpdatePassword(int CustomerId, string NewPassword)
+        {
+            var customer = await _context.Customer.Where(x => x.CustomerId == CustomerId).FirstOrDefaultAsync();
+            customer.CustomerPassword = NewPassword;
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace BusinessObject
         public DateTime CreateAt { get; set; }
 
         public virtual Customer Customer { get; set; }
+        public virtual IEnumerable<OrderDetail> OrderDetail { get; set; }
     }
 }

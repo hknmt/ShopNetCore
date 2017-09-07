@@ -1,0 +1,126 @@
+﻿@model BanHang.ViewModel.AccountViewModel.EditViewModel
+@{
+    ViewData["Title"] = "Tài khoản của tôi";
+    Layout = "~/Views/Account/_LayoutAccount.cshtml";
+}
+<h1 class="have-margin">Thông tin tài khoản</h1>
+<div class="account-profile register-form">
+    <form class="content" method="post" asp-controller="Account" asp-action="Edit" id="edit-account" data-ajax="true" data-ajax-success="EditSuccess">
+
+        <div class="form-group">
+            <label class="control-label" asp-for="CustomerFullname"></label>
+            <div class="input-wrap">
+                <input class="form-control" asp-for="CustomerFullname" placeholder="Họ tên" type="text">
+                <span asp-validation-for="CustomerFullname" class="help-block"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label off" asp-for="CustomerEmail"></label>
+            <div class="input-wrap">
+                <input disabled="" class="form-control" asp-for="CustomerEmail" placeholder="Email" type="email">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="CustomerPhone"></label>
+            <div class="input-wrap">
+                <input class="form-control" asp-for="CustomerPhone" placeholder="Họ tên" type="text">
+                <span asp-validation-for="CustomerPhone" class="help-block"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="CustomerAddress"></label>
+            <div class="input-wrap">
+                <input class="form-control" asp-for="CustomerAddress" placeholder="Họ tên" type="text">
+                <span asp-validation-for="CustomerAddress" class="help-block"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-wrap margin">
+                <label class="checkbox">
+
+                    <input id="is_change_pass" name="is_change_pass" value="checked" type="checkbox">
+                    <span class="ico"></span> Thay đổi mật khẩu
+
+                </label>
+
+            </div>
+        </div>
+        <div class="password-group">
+            <div class="form-group">
+                <label class="control-label" asp-for="CustomerPassword"></label>
+                <div class="input-wrap">
+                    <input asp-for="CustomerPassword" class="form-control" placeholder="Nhập mật khẩu cũ">
+                    <span asp-validation-for="CustomerPassword" class="help-block"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="NewPassword"></label>
+                <div class="input-wrap">
+                    <input asp-for="NewPassword" class="form-control" placeholder="Mật khẩu từ 6 đến 32 ký tự">
+                    <span asp-validation-for="NewPassword" class="help-block"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="ReNewPassword"></label>
+                <div class="input-wrap">
+                    <input asp-for="ReNewPassword" class="form-control" placeholder="Mật khẩu từ 6 đến 32 ký tự">
+                    <span asp-validation-for="ReNewPassword" class="help-block"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-wrap margin">
+                <button type="submit" class="btn btn-info btn-block btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $('.checkbox').on('ifChanged change', function (event) {
+			$('.password-group').slideToggle('fast');
+        });
+
+        var EditSuccess = function (response) {
+            console.log(response["message"]);
+            if (!response["success"]) {
+                $(".modal-body").html(response["message"]);
+                $("#myModal").modal('show');
+            } else {
+                window.location.href = "/Account/Edit";
+
+            }
+
+        };
+    </script>
+}
+

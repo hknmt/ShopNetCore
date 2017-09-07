@@ -89,6 +89,26 @@ namespace DataAccessObject.Implements
             .ToListAsync();
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersByCustomerId(int CustomerId, int? Page)
+        {
+            return await _context.Order
+                .Join(_context.Customer, x => x.CustomerId, y => y.CustomerId, (x, y) => new Order{
+                    CustomerId = x.CustomerId,
+                    CreateAt = x.CreateAt,
+                    Customer = y,
+                    OrderId = x.OrderId,
+                    OrderStatus = x.OrderStatus,
+                    ShipAddress = x.ShipAddress,
+                    ShipName = x.ShipName,
+                    ShipPhone = x.ShipPhone
+                })
+                .Where(x => x.CustomerId == CustomerId)
+                .OrderByDescending(x => x.CreateAt)
+                .Skip(10 * ((Page ?? 1) - 1))
+                .Take(10)                
+                .ToListAsync();
+        }
+
         public async Task SetOrderConfirm(int OrderId, bool OrderStatus)
         {
             var order = await _context.Order.Where(x => x.OrderId == OrderId).FirstOrDefaultAsync();

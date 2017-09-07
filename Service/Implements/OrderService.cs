@@ -58,5 +58,18 @@ namespace Service.Implements
         {
             return await _orderRepository.Count();
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersByCustomerId(int CustomerId, int? Page)
+        {
+            var orders = await _orderRepository.GetOrdersByCustomerId(CustomerId, Page);
+
+            foreach(var order in orders)
+            {
+                var orderDetail = await _orderDetailRepository.GetOrderDetailByOrderId(order.OrderId);
+                order.OrderDetail = orderDetail;
+            }
+
+            return orders;
+        }
     }
 }

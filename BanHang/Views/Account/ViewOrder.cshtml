@@ -1,0 +1,72 @@
+﻿@model BanHang.ViewModel.AccountViewModel.ViewOrderViewModel
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    Layout = "~/Views/Account/_LayoutAccount.cshtml";
+}
+<h1 class="have-margin">Chi tiết đơn hàng #@Model.OrderId - <strong>@(Model.OrderStatus == null ? "Đang chờ duyệt" : (Model.OrderStatus.Value ? "Đã duyệt" : "Hủy đơn"))</strong></h1>
+
+<p class="date">Ngày đặt hàng:  @Model.CreateAt.ToString("dd-MM-yyyy HH:mm")</p>
+
+<div class="account-order-detail">
+
+    <div class="address-1">
+        <h3>
+            Địa chỉ người nhận
+        </h3>
+        <div>
+            <p class="name">@Model.ShipName</p>
+
+            <p><span>Địa chỉ: </span>@Model.ShipAddress</p>
+
+            <p><span>Điện thoại:</span> @Model.ShipPhone</p>
+        </div>
+    </div>
+    <div class="other-1">
+
+
+
+    </div>
+
+</div>
+<div class="dashboard-order have-margin">
+    <table class="table-responsive-2">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tạm tính</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetail)
+            {
+            <tr>
+                <td>
+                    <img class="img-responsive thumb" src="/@item.Product.ProductImage" alt="@item.Product.ProductName" width="130" height="182">
+                    <div class="product-info">
+                        <a class="name" asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                            @item.Product.ProductName
+                        </a>
+                    </div>
+                </td>
+                <td>@item.ProductPrice.ToString("C")</td>
+                <td>
+                    @item.ProductQuantity
+                </td>
+
+                <td>@string.Format("{0:C}",item.ProductPrice*item.ProductQuantity)</td>
+            </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"><span>Tổng cộng</span></td>
+                <td><span class="sum">@Model.OrderDetail.Sum(x => x.ProductQuantity * x.ProductPrice).ToString("C")</span></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<a asp-controller="Account" asp-action="OrderHistory" class="btn btn-info btn-back"> Quay lại đơn hàng của tôi</a>
+

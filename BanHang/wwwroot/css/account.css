@@ -12211,24 +12211,24 @@ body.safari header#header .search-wrap button[type=submit] {
                 width: 18px;
                 height: 18px;
                 display: inline-block;
-                background-image: url(../img/svg/check-off.svg);
+                background-image: url(../images/svg/check-off.svg);
                 vertical-align: top
             }
 
             #header label.input-wrap input[type=checkbox]:checked + span {
-                background-image: url(../img/svg/check-on.svg)
+                background-image: url(../images/svg/check-on.svg)
             }
 
             #header label.input-wrap input[type=radio] + span {
                 width: 20px;
                 height: 20px;
                 display: inline-block;
-                background-image: url(../img/svg/radio-off.svg);
+                background-image: url(../images/svg/radio-off.svg);
                 vertical-align: top
             }
 
             #header label.input-wrap input[type=radio]:checked + span {
-                background-image: url(../img/svg/radio-on.svg)
+                background-image: url(../images/svg/radio-on.svg)
             }
 
     #header .btn {
@@ -14113,11 +14113,11 @@ header#header .main-nav {
         }
 
     header#header .main-nav .return .icon {
-        background-image: url(../img/svg/return.svg)
+        background-image: url(../images/svg/return.svg)
     }
 
     header#header .main-nav .exclusive .icon {
-        background-image: url(../img/svg/exclusive.svg)
+        background-image: url(../images/svg/exclusive.svg)
     }
 
     header#header .main-nav .support .icon {
@@ -15795,7 +15795,7 @@ header#header {
     }
 
     header#header .header-form-container .search-wrap button[type=submit] {
-        background: url(../img/svg/ic-search-2.svg) 10px center no-repeat #edeef2 !important;
+        background: url(../images/svg/ic-search-2.svg) 10px center no-repeat #edeef2 !important;
         padding: 0 11px 0 32px
     }
 
@@ -17416,14 +17416,14 @@ body.tiki-home .product-item {
                             width: 18px;
                             height: 18px;
                             display: inline-block;
-                            background-image: url(../img/account/check-off.svg);
+                            background-image: url(../images/svg/check-off.svg);
                             vertical-align: top;
                             color: #a6a6a6;
                             margin-right: 10px
                         }
 
                         .wrap .account-profile .form-group .input-wrap .checkbox input[type=checkbox]:checked + span.ico {
-                            background-image: url(../img/account/check-on.svg)
+                            background-image: url(../images/svg/check-on.svg)
                         }
 
             .wrap .account-profile .form-group .btn-update {
@@ -18810,7 +18810,7 @@ input[type=password]:-moz-placeholder {
             position: absolute;
             color: #242424;
             top: 20px;
-            right: 0;
+            right: 17px;
             font-size: 13px
         }
 

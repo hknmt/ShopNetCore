@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BanHang.ViewModel.AccountViewModel.OrderHistoryViewModel>
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    Layout = "~/Views/Account/_LayoutAccount.cshtml";
+}
+<h1 class="have-margin">Đơn hàng của tôi</h1>
+
+<div class="dashboard-order have-margin">
+    <table class="table-responsive-2">
+        <thead>
+            <tr>
+                <th>
+                    <span class="hidden-xs hidden-sm hidden-md">Mã đơn hàng</span>
+                    <span class="hidden-lg">Code</span>
+                </th>
+                <th>Ngày mua</th>
+                <th>Sản phẩm</th>
+                <th>Tổng tiền</th>
+                <th>
+                    <span class="hidden-xs hidden-sm hidden-md">Trạng thái <br> đơn hàng</span>
+                    <span class="hidden-lg">Trạng thái</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+            <tr>
+                <td><a asp-controller="Account" asp-action="ViewOrder" asp-route-OrderId="@order.OrderId">@order.OrderId</a></td>
+                <td>@order.CreateAt.ToString("dd-MM-yyyy")</td>
+                @if(order.NumberItem <= 1)
+                {
+                    <td>@order.ItemFirst</td>
+
+                }
+                else
+                {
+                    <td>@order.ItemFirst ... và @(order.NumberItem - 1) sản phẩm khác</td>
+
+                }
+                <td>@order.OrderTotal.ToString("C")</td>
+                <td>
+                    <span class="order-status">
+                        @(order.OrderStatus == null ? "Đang chờ duyệt" : (order.OrderStatus.Value ? "Đã duyệt" : "Hủy đơn"))
+                    </span>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="list-pager">
+
+</div>
